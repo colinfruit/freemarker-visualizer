@@ -10,7 +10,9 @@
   "dependencies": {
     "@oclif/command": "^1.8.0",
     "@oclif/config": "^1.17.0",
-    "@oclif/plugin-help": "^3.2.0"
+    "@oclif/plugin-help": "^3.2.0",
+    "freemarker-parser": "^1.1.6",
+    "graphviz": "0.0.9"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1.23.0",

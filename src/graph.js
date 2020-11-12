@@ -31,9 +31,7 @@ const path = require('path');
   */
 const checkGraphvizInstalled = () => {
   exec('gvpr -V', null, (error) => { if (error) throw new Error('Graphviz could not be found. Ensure that "gvpr" is in your $PATH.\n' + error);});
-
 }
-
 
 const defaultConfig = {
 	rankdir: 'LR',
@@ -53,9 +51,8 @@ const defaultConfig = {
  * @param  {Object} defaultConfig
  * @return {Object}
  */
-function createGraphvizOptions() {
+const createGraphvizOptions = () => {
 	const graphVizOptions = defaultConfig.graphVizOptions || {};
-
 	return {
 		// Graph
 		G: Object.assign({
@@ -90,9 +87,6 @@ function createGraphvizOptions() {
  */
 const createGraph = (g, fileTree, edges) => {
   const color = fileTree.dependencies.length > 0 ? "blue" : "green";
-  // if (g.getNode(fileTree.filename)) {
-  //   return g.getNode(fileTree.filename);
-  // }
   const root = g.addNode(fileTree.filename, { "color": color });
   fileTree.dependencies.forEach((dep) => {
     if (!edges.has(`${fileTree.filename}${dep.filename}`)) {
@@ -112,7 +106,7 @@ const createGraph = (g, fileTree, edges) => {
  * @param {String} outputPath
  */
  const image = (tree, outputPath) => {
-	checkGraphvizInstalled();
+  checkGraphvizInstalled();
   const options = createGraphvizOptions();
   options.type = path.extname(outputPath).replace('.', '') || 'png';
   const g = graphviz.digraph("G");

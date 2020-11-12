@@ -10,16 +10,25 @@ class Tree {
     return (token.type == "Directive" && token.text == "import");
   }
 
+  static getPath(token) {
+    let match = /\/.*\.[\w:]+/.exec(token.params);
+    if (match && match[0] !== 'undefined') {
+      return match[0];
+    } else {
+      return false;
+    }
+  }
+
   constructor(template, baseDir) {
     this.templatePath = template;
     this.baseDir = baseDir;
   }
 
   /**
-  	 * Generate a tree of dependencies for the provided
+  	 * Generate a list of dependencies for the provided
      * FreeMarker template
-     * @params {String | undefined} path
-  	 * @return {Array} tokens
+     * @params {String} path
+  	 * @return {Array} paths.
   	 */
   getDeps(path) {
     let fileContents;
@@ -34,17 +43,11 @@ class Tree {
     const parser = new freemarker.Parser();
     const data = parser.parse(fileContents);
 
-    // TODO: clean this up
-    let includes = data.tokens.filter((token) => Tree.isInclude(token)).map((token) => (token.params.replace(/"/g, '').replace(/'/g, '').replace(/ /g, '')));
-    let imports = data.tokens.filter((token) => Tree.isImport(token)).map((token) => {
-      let match = /\/.*\.[\w:]+/.exec(token.params);
-      if (match && match[0] !== 'undefined') {
-        return match[0];
-      } else {
-        return false;
-      }
-    }).filter((x) => (x != false ));
-    return includes.concat(imports);
+    let files = data.tokens
+                    .filter((token) => Tree.isInclude(token) || Tree.isImport(token))
+                    .map(Tree.getPath)
+                    .filter((x) => (x != false ));
+    return files;
   }
 
   /**

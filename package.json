@@ -1,0 +1,43 @@
+{
+  "name": "freemarker-visualizer",
+  "description": "A command-line utility to produce visualize graphs of FreeMarker dependencies.",
+  "version": "0.0.0",
+  "author": "colinfruit",
+  "bin": {
+    "freemarker-visualizer": "./bin/run"
+  },
+  "bugs": "https://github.com/colinfruit/freemarker-visualizer/issues",
+  "dependencies": {
+    "@oclif/command": "^1.8.0",
+    "@oclif/config": "^1.17.0",
+    "@oclif/plugin-help": "^3.2.0"
+  },
+  "devDependencies": {
+    "@oclif/dev-cli": "^1.23.0",
+    "eslint": "^5.16.0",
+    "eslint-config-oclif": "^3.1.0"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "files": [
+    "/bin",
+    "/src"
+  ],
+  "homepage": "https://github.com/colinfruit/freemarker-visualizer",
+  "keywords": [
+    "oclif"
+  ],
+  "license": "MIT",
+  "main": "src/index.js",
+  "oclif": {
+    "bin": "freemarker-visualizer"
+  },
+  "repository": "colinfruit/freemarker-visualizer",
+  "scripts": {
+    "posttest": "eslint .",
+    "prepack": "oclif-dev readme",
+    "test": "echo NO TESTS",
+    "version": "oclif-dev readme && git add README.md"
+  }
+}

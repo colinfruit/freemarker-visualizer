@@ -80,21 +80,26 @@ const createGraphvizOptions = () => {
 	};
 }
 
-/**
- * Return options to use with graphviz digraph.
- * @param {Object} tree
- * @return {Object}
- */
-const createGraph = (g, fileTree, edges) => {
-  const color = fileTree.dependencies.length > 0 ? "blue" : "green";
-  const root = g.addNode(fileTree.filename, { "color": color });
-  fileTree.dependencies.forEach((dep) => {
-    if (!edges.has(`${fileTree.filename}${dep.filename}`)) {
+const getNodeId = (tree) => {
+    let nodeId = tree.filename;
+    if (tree.additionalInfo) {
+        Object.keys(tree.additionalInfo).forEach(key => {
+            nodeId += `\n${key}: ${tree.additionalInfo[key]}`
+        })
+    }
+    return nodeId;
+}
+
+const createGraph = (g, tree, edges) => {
+  const color = tree.dependencies.length > 0 ? "blue" : "green";
+  const root = g.addNode(getNodeId(tree), { "color": color });
+  tree.dependencies.forEach((dep) => {
+    if (!edges.has(`${getNodeId(tree)}${getNodeId(dep)}`)) {
       // TODO: this logic needs to be cleaned up.
       // find a better way to avoid duplicate edges.
-      edges.add(`${fileTree.filename}${dep.filename}`)
+      edges.add(`${getNodeId(tree)}${getNodeId(dep)}`)
       let node = createGraph(g, dep, edges);
-      g.addEdge(fileTree.filename, dep.filename);
+      g.addEdge(getNodeId(tree), getNodeId(dep));
     }
   });
   return root;

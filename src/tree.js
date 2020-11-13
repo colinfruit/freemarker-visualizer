@@ -28,7 +28,6 @@ class Tree {
     static getDeps(fileContents) {
         const parser = new freemarker.Parser();
         const ast = parser.parse(fileContents);
-        const additionalInfo = {};
     
         let files = ast.tokens
                         .filter((token) => Tree.isInclude(token) || Tree.isImport(token))
@@ -66,7 +65,7 @@ class Tree {
         additionalInfo = this.additionalInfoGenerator(fileContents);
     }
 
-    return { fileContents, additionalInfo: {} };
+    return { fileContents, additionalInfo };
   }
 
   /**
@@ -77,7 +76,7 @@ class Tree {
   	 */
   generateTree(filename = this.templatePath) {
     let { fileContents, additionalInfo } = this.readFileContents(filename);
-    const tree = { filename, dependencies: [], additionalInfo, };
+    const tree = { filename, additionalInfo, };
     let files = Tree.getDeps(fileContents);
     tree.dependencies = files.map((dep) => {
       return this.generateTree(dep);

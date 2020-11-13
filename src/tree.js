@@ -19,35 +19,54 @@ class Tree {
     }
   }
 
-  constructor(template, baseDir) {
-    this.templatePath = template;
-    this.baseDir = baseDir;
-  }
-
-  /**
+    /**
   	 * Generate a list of dependencies for the provided
      * FreeMarker template
      * @params {String} path
   	 * @return {Array} paths.
   	 */
-  getDeps(path) {
+    static getDeps(fileContents) {
+        const parser = new freemarker.Parser();
+        const ast = parser.parse(fileContents);
+        const additionalInfo = {};
+    
+        let files = ast.tokens
+                        .filter((token) => Tree.isInclude(token) || Tree.isImport(token))
+                        .map(Tree.getPath)
+                        .filter((x) => (x != false ));
+        return files;
+    }
+    
+
+  constructor(template, baseDir, additionalInfoGenerator) {
+    this.templatePath = template;
+    this.baseDir = baseDir;
+    this.additionalInfoGenerator = additionalInfoGenerator;
+  }
+
+    /**
+  	 * Read file contents for the provided file
+     * @params {String} filename
+  	 * @return {Array} paths.
+  	 */
+  readFileContents(filename) {
     let fileContents;
     this.baseDir.forEach((dir) => {
-      if (fs.existsSync(`${dir}${path}`)) {
-        fileContents = fs.readFileSync(`${dir}${path}`, "utf8");
+      if (fs.existsSync(`${dir}${filename}`)) {
+        fileContents = fs.readFileSync(`${dir}${filename}`, "utf8");
       }
     });
-    if (!fileContents) {
-      return [];
-    }
-    const parser = new freemarker.Parser();
-    const data = parser.parse(fileContents);
 
-    let files = data.tokens
-                    .filter((token) => Tree.isInclude(token) || Tree.isImport(token))
-                    .map(Tree.getPath)
-                    .filter((x) => (x != false ));
-    return files;
+    if (!fileContents) {
+        throw new Error(`Could not read ${filename}`);
+    }
+
+    let additionalInfo = {};
+    if (this.additionalInfoGenerator) {
+        additionalInfo = this.additionalInfoGenerator(fileContents);
+    }
+
+    return { fileContents, additionalInfo: {} };
   }
 
   /**
@@ -56,10 +75,11 @@ class Tree {
      * @params {String} path
   	 * @return {Object} file tree
   	 */
-  generateTree(path = this.templatePath) {
-    const tree = { filename: path, dependencies: [] };
-    let deps = this.getDeps(path);
-    tree.dependencies = deps.map((dep) => {
+  generateTree(filename = this.templatePath) {
+    let { fileContents, additionalInfo } = this.readFileContents(filename);
+    const tree = { filename, dependencies: [], additionalInfo, };
+    let files = Tree.getDeps(fileContents);
+    tree.dependencies = files.map((dep) => {
       return this.generateTree(dep);
     });
     return tree;

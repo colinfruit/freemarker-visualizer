@@ -4,7 +4,7 @@ const fs = require('fs')
 class Tree {
   /**
     * @param {Object} token freemarker token
-    * @return {Boolean} indicating whether or not given token is an include directive
+    * @return {Boolean} token is an include directive
     */
   static isInclude(token) {
     return (token.type === 'Directive' && token.text === 'include')
@@ -12,7 +12,7 @@ class Tree {
 
   /**
     * @param {Object} token freemarker token
-    * @return {Boolean} indicating whether or not given token is an import directive
+    * @return {Boolean} token is an import directive
     */
   static isImport(token) {
     return (token.type === 'Directive' && token.text === 'import')
@@ -34,7 +34,7 @@ class Tree {
   	 * Generate a list of dependencies for the provided
      * FreeMarker template
      * @param {String} fileContents contents of previously created file
-  	 * @return {Array} array of all dependencies included or imported
+  	 * @return {Array} array of all files included or imported
   	 */
   static getDeps(fileContents) {
     const parser = new freemarker.Parser()
@@ -48,12 +48,12 @@ class Tree {
 
   /**
     * @param {String} templatePath template to generate tree
-    * @param {Array} baseDir array of directories to search for files
+    * @param {Array} baseDirectories array of directories to search for files
     * @param {Function} additionalInfoGenerator file processor to generate additional info about provided templates
     */
-  constructor(templatePath, baseDir, additionalInfoGenerator) {
+  constructor(templatePath, baseDirectories, additionalInfoGenerator) {
     this.templatePath = templatePath
-    this.baseDir = baseDir
+    this.baseDirectories = baseDirectories
     this.additionalInfoGenerator = additionalInfoGenerator
   }
 
@@ -64,7 +64,7 @@ class Tree {
   	 */
   readFileContents(filename) {
     let fileContents
-    this.baseDir.forEach(dir => {
+    this.baseDirectories.forEach(dir => {
       if (fs.existsSync(`${dir}${filename}`)) {
         fileContents = fs.readFileSync(`${dir}${filename}`, 'utf8')
       }

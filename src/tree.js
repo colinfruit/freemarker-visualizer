@@ -1,5 +1,6 @@
 const freemarker = require('freemarker-parser')
 const fs = require('fs')
+const path = require('path')
 
 class Tree {
   /**
@@ -65,8 +66,8 @@ class Tree {
   readFileContents(filename) {
     let fileContents
     this.baseDirectories.forEach(dir => {
-      if (fs.existsSync(`${dir}${filename}`)) {
-        fileContents = fs.readFileSync(`${dir}${filename}`, 'utf8')
+      if (fs.existsSync(path.join(dir, filename))) {
+        fileContents = fs.readFileSync(path.join(dir, filename), 'utf8')
       }
     })
 

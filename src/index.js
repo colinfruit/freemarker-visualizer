@@ -18,7 +18,6 @@ class FreemarkerVisualizer extends Command {
 }
 
 FreemarkerVisualizer.description = `A command-line utility to produce visualize graphs of FreeMarker dependencies.
-General usage would be:
 freemarker-visualizer --template example.ftl --directories path/to/ftl/dirs,second/path/to/ftls --output graph.svg
 `
 

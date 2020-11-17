@@ -21,103 +21,104 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-const graphviz = require('graphviz');
-const { exec } = require('child_process');
-const { writeFile } = require('fs');
-const path = require('path');
+const graphviz = require('graphviz')
+const {exec} = require('child_process')
+const path = require('path')
+
 /**
-  * Checks if graphviz can be found
-  * @return {}
-  */
+* Checks if graphviz is installed
+*/
 const checkGraphvizInstalled = () => {
-  exec('gvpr -V', null, (error) => { if (error) throw new Error('Graphviz could not be found. Ensure that "gvpr" is in your $PATH.\n' + error);});
+  exec('gvpr -V', null, error => {
+    if (error) throw new Error('Graphviz could not be found. Ensure that "gvpr" is in your $PATH.\n' + error)
+  })
 }
 
 const defaultConfig = {
-	rankdir: 'LR',
-	layout: 'dot',
-	fontName: 'Arial',
-	fontSize: '14px',
-	backgroundColor: '#111111',
-	nodeColor: '#c6c5fe',
-	nodeShape: 'box',
-	nodeStyle: 'rounded',
-	edgeColor: '#757575',
-	graphVizOptions: false,
-    type: 'png',
-};
-/**
- * Return options to use with graphviz digraph.
- * @param  {Object} defaultConfig
- * @return {Object}
- */
-const createGraphvizOptions = () => {
-	const graphVizOptions = defaultConfig.graphVizOptions || {};
-	return {
-		// Graph
-		G: Object.assign({
-			overlap: false,
-			pad: 0.3,
-			rankdir: defaultConfig.rankdir,
-			layout: defaultConfig.layout,
-			bgcolor: defaultConfig.backgroundColor
-		}, graphVizOptions.G),
-		// Edge
-		E: Object.assign({
-			color: defaultConfig.edgeColor
-		}, graphVizOptions.E),
-		// Node
-		N: Object.assign({
-			fontname: defaultConfig.fontName,
-			fontsize: defaultConfig.fontSize,
-			color: defaultConfig.nodeColor,
-			shape: defaultConfig.nodeShape,
-			style: defaultConfig.nodeStyle,
-			height: 0,
-			fontcolor: defaultConfig.nodeColor
-		}, graphVizOptions.N),
-        type: 'png',
-	};
+  rankdir: 'LR',
+  layout: 'dot',
+  fontName: 'Arial',
+  fontSize: '14px',
+  backgroundColor: '#111111',
+  nodeColor: '#c6c5fe',
+  nodeShape: 'box',
+  nodeStyle: 'rounded',
+  edgeColor: '#757575',
+  graphVizOptions: false,
+  type: 'png',
 }
 
-const getNodeId = (tree) => {
-    let nodeId = tree.filename;
-    if (tree.additionalInfo) {
-        Object.keys(tree.additionalInfo).forEach(key => {
-            nodeId += `\n${key}: ${tree.additionalInfo[key]}`
-        })
-    }
-    return nodeId;
+/**
+ * Return options to use with graphviz digraph.
+ * @return {Object} graphVizOptions
+ */
+const createGraphvizOptions = () => {
+  const graphVizOptions = defaultConfig.graphVizOptions || {}
+  return {
+    // Graph
+    G: Object.assign({
+      overlap: false,
+      pad: 0.3,
+      rankdir: defaultConfig.rankdir,
+      layout: defaultConfig.layout,
+      bgcolor: defaultConfig.backgroundColor,
+    }, graphVizOptions.G),
+    // Edge
+    E: Object.assign({
+      color: defaultConfig.edgeColor,
+    }, graphVizOptions.E),
+    // Node
+    N: Object.assign({
+      fontname: defaultConfig.fontName,
+      fontsize: defaultConfig.fontSize,
+      color: defaultConfig.nodeColor,
+      shape: defaultConfig.nodeShape,
+      style: defaultConfig.nodeStyle,
+      height: 0,
+      fontcolor: defaultConfig.nodeColor,
+    }, graphVizOptions.N),
+    type: 'png',
+  }
+}
+
+const getNodeId = tree => {
+  let nodeId = tree.filename
+  if (tree.additionalInfo) {
+    Object.keys(tree.additionalInfo).forEach(key => {
+      nodeId += `\n${key}: ${tree.additionalInfo[key]}`
+    })
+  }
+  return nodeId
 }
 
 const createGraph = (g, tree, edges) => {
-  const color = tree.dependencies.length > 0 ? "blue" : "green";
-  const root = g.addNode(getNodeId(tree), { "color": color });
-  tree.dependencies.forEach((dep) => {
+  const color = tree.dependencies.length > 0 ? 'blue' : 'green'
+  const root = g.addNode(getNodeId(tree), {color: color})
+  tree.dependencies.forEach(dep => {
     if (!edges.has(`${getNodeId(tree)}${getNodeId(dep)}`)) {
-      // TODO: this logic needs to be cleaned up.
+      // this logic needs to be cleaned up.
       // find a better way to avoid duplicate edges.
       edges.add(`${getNodeId(tree)}${getNodeId(dep)}`)
-      let node = createGraph(g, dep, edges);
-      g.addEdge(getNodeId(tree), getNodeId(dep));
+      createGraph(g, dep, edges)
+      g.addEdge(getNodeId(tree), getNodeId(dep))
     }
-  });
-  return root;
+  })
+  return root
 }
 
 /**
  * Creates an image from the module dependency tree.
- * @param  {Object} tree
- * @param {String} outputPath
+ * @param  {Object} tree file tree with FTL dependencies and info
+ * @param {String} outputPath path to for generated dependency graph
  */
- const image = (tree, outputPath) => {
-  checkGraphvizInstalled();
-  const options = createGraphvizOptions();
-  options.type = path.extname(outputPath).replace('.', '') || 'png';
-  const g = graphviz.digraph("G");
-  const edges = new Set();
-  const graph = createGraph(g, tree, edges);
-  g.output(options, outputPath);
-};
+const image = (tree, outputPath) => {
+  checkGraphvizInstalled()
+  const options = createGraphvizOptions()
+  options.type = path.extname(outputPath).replace('.', '') || 'png'
+  const g = graphviz.digraph('G')
+  const edges = new Set()
+  createGraph(g, tree, edges)
+  g.output(options, outputPath)
+}
 
-module.exports = image;
+module.exports = image

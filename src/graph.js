@@ -53,22 +53,21 @@ const defaultConfig = {
  * @return {Object} graphVizOptions
  */
 const createGraphvizOptions = () => {
-  const graphVizOptions = defaultConfig.graphVizOptions || {}
   return {
     // Graph
-    G: Object.assign({
+    G: {
       overlap: false,
       pad: 0.3,
       rankdir: defaultConfig.rankdir,
       layout: defaultConfig.layout,
       bgcolor: defaultConfig.backgroundColor,
-    }, graphVizOptions.G),
+    },
     // Edge
-    E: Object.assign({
+    E: {
       color: defaultConfig.edgeColor,
-    }, graphVizOptions.E),
+    },
     // Node
-    N: Object.assign({
+    N: {
       fontname: defaultConfig.fontName,
       fontsize: defaultConfig.fontSize,
       color: defaultConfig.nodeColor,
@@ -76,40 +75,49 @@ const createGraphvizOptions = () => {
       style: defaultConfig.nodeStyle,
       height: 0,
       fontcolor: defaultConfig.nodeColor,
-    }, graphVizOptions.N),
+    },
     type: 'png',
   }
 }
 
-const getNodeId = tree => {
-  let nodeId = tree.filename
-  if (tree.additionalInfo) {
-    Object.keys(tree.additionalInfo).forEach(key => {
-      nodeId += `\n${key}: ${tree.additionalInfo[key]}`
+/**
+  * @param {Object} treeNode file tree node
+  * @returns {String} display name for file
+  */
+const getNodeDisplayName = treeNode => {
+  let displayName = treeNode.filename
+  if (treeNode.additionalInfo) {
+    Object.keys(treeNode.additionalInfo).forEach(key => {
+      displayName += `\n${key}: ${treeNode.additionalInfo[key]}`
     })
   }
-  return nodeId
+  return displayName
 }
 
-const createGraph = (g, tree, edges) => {
-  const color = tree.dependencies.length > 0 ? 'blue' : 'green'
-  const root = g.addNode(getNodeId(tree), {color: color})
-  tree.dependencies.forEach(dep => {
-    if (!edges.has(`${getNodeId(tree)}${getNodeId(dep)}`)) {
+/**
+ * Recursively generates a dependency graph
+ * @param {Object} g graph
+ * @param {Object} treeNode file tree node
+ * @param {Set} edges set to ensure duplicate edges are not created
+ */
+const createGraph = (g, treeNode, edges) => {
+  const color = treeNode.dependencies.length > 0 ? 'blue' : 'green'
+  g.addNode(getNodeDisplayName(treeNode), {color: color})
+  treeNode.dependencies.forEach(dep => {
+    if (!edges.has(`${getNodeDisplayName(treeNode)}${getNodeDisplayName(dep)}`)) {
       // this logic needs to be cleaned up.
       // find a better way to avoid duplicate edges.
-      edges.add(`${getNodeId(tree)}${getNodeId(dep)}`)
+      edges.add(`${getNodeDisplayName(treeNode)}${getNodeDisplayName(dep)}`)
       createGraph(g, dep, edges)
-      g.addEdge(getNodeId(tree), getNodeId(dep))
+      g.addEdge(getNodeDisplayName(treeNode), getNodeDisplayName(dep))
     }
   })
-  return root
 }
 
 /**
  * Creates an image from the module dependency tree.
- * @param  {Object} tree file tree with FTL dependencies and info
- * @param {String} outputPath path to for generated dependency graph
+ * @param  {Object} tree file tree with FTL dependencies and additional info
+ * @param {String} outputPath path for generated dependency graph
  */
 const image = (tree, outputPath) => {
   checkGraphvizInstalled()

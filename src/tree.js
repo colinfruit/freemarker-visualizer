@@ -2,14 +2,26 @@ const freemarker = require('freemarker-parser')
 const fs = require('fs')
 
 class Tree {
+  /**
+    * @param {Object} token freemarker token
+    * @return {Boolean} indicating whether or not given token is an include directive
+    */
   static isInclude(token) {
     return (token.type === 'Directive' && token.text === 'include')
   }
 
+  /**
+    * @param {Object} token freemarker token
+    * @return {Boolean} indicating whether or not given token is an import directive
+    */
   static isImport(token) {
     return (token.type === 'Directive' && token.text === 'import')
   }
 
+  /**
+    * @param {Object} token freemarker token
+    * @return {String|Boolean} a valid file path if it exists or false
+    */
   static getPath(token) {
     let match = /\/.*\.[\w:]+/.exec(token.params)
     if (match && match[0] !== 'undefined') {
@@ -34,8 +46,13 @@ class Tree {
     return files
   }
 
-  constructor(template, baseDir, additionalInfoGenerator) {
-    this.templatePath = template
+  /**
+    * @param {String} templatePath template to generate tree
+    * @param {Array} baseDir array of directories to search for files
+    * @param {Function} additionalInfoGenerator file processor to generate additional info about provided templates
+    */
+  constructor(templatePath, baseDir, additionalInfoGenerator) {
+    this.templatePath = templatePath
     this.baseDir = baseDir
     this.additionalInfoGenerator = additionalInfoGenerator
   }

@@ -19,7 +19,7 @@ $ npm install -g freemarker-visualizer
 $ freemarker-visualizer COMMAND
 running command...
 $ freemarker-visualizer (-v|--version|version)
-freemarker-visualizer/0.0.1 darwin-x64 node-v12.13.0
+freemarker-visualizer/0.0.2 darwin-x64 node-v12.13.0
 $ freemarker-visualizer --help [COMMAND]
 USAGE
   $ freemarker-visualizer COMMAND

@@ -1,16 +1,23 @@
 const {Command, flags} = require('@oclif/command')
+const path = require('path')
+
 const Tree = require('./tree')
 const image = require('./graph')
+const {getConfig, sanitizeConfig} = require('./config-helper')
 
 class FreemarkerVisualizer extends Command {
   async run() {
     const {flags} = this.parse(FreemarkerVisualizer)
 
-    if (flags.template && flags.directories && flags.output) {
-      const directories = flags.directories.split(',')
-      const deps = new Tree(flags.template, directories)
-      const tree = deps.generateTree()
-      image(tree, flags.output)
+    const configPath = flags.config ?
+      path.resolve(flags.config) :
+      path.join(this.config.configDir, 'config.js')
+    const config = getConfig(configPath)
+    // cli flags should override config options
+    const options = sanitizeConfig({...config, ...flags})
+    if (options.template && options.directories && options.output) {
+      const tree = new Tree(options.template, options.directories).generateTree()
+      image(tree, options.output)
     } else {
       throw new Error('you must supply a template, directories, and output flags!')
     }
@@ -29,6 +36,7 @@ FreemarkerVisualizer.flags = {
   template: flags.string({char: 't', description: 'ftl template path'}),
   directories: flags.string({char: 'd', description: 'comma separated list of ftl base paths'}),
   output: flags.string({char: 'o', description: 'output path'}),
+  config: flags.string({char: 'c', description: 'optional configuration file'}),
 }
 
 module.exports = FreemarkerVisualizer

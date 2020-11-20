@@ -1,7 +1,11 @@
 freemarker-visualizer
 =====================
 
-A command-line utility to produce visualize graphs of FreeMarker dependencies.
+<p align="center">
+    :construction: Work in Progress! :construction:
+</p>
+
+A command-line utility to produce visual graphs of FreeMarker templates.
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/freemarker-visualizer.svg)](https://npmjs.org/package/freemarker-visualizer)
@@ -25,3 +29,5 @@ USAGE
 ...
 ```
 <!-- usagestop -->
+
+This library was created to help users analyze FreeMarker templates. It was inspired by [Madge](https://github.com/pahen/madge).

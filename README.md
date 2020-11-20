@@ -25,16 +25,12 @@
   npm install -g freemarker-visualizer
   ```
   ## Install `graphviz`:
-  OS X:
   ```sh
+  # OS X:
   brew install graphviz || port install graphviz
-  ```
-  Fedora:
-  ```
+  # Fedora:
   dnf install graphviz
-  ```
-  Ubuntu:
-  ```
+  # Ubuntu:
   apt-get install graphviz
   ```
   <!-- setupstop -->

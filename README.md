@@ -1,33 +1,43 @@
-freemarker-visualizer
-=====================
+  freemarker-visualizer
+  =====================
 
-<p align="center">
-    :construction: Work in Progress! :construction:
-</p>
+  <p align="center">
+      :construction: Work in Progress! :construction:
+  </p>
 
-A command-line utility to produce visual graphs of FreeMarker templates.
+  [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
+  [![Version](https://img.shields.io/npm/v/freemarker-visualizer.svg)](https://npmjs.org/package/freemarker-visualizer)
+  [![Downloads/week](https://img.shields.io/npm/dw/freemarker-visualizer.svg)](https://npmjs.org/package/freemarker-visualizer)
+  [![License](https://img.shields.io/npm/l/freemarker-visualizer.svg)](https://github.com/colinfruit/freemarker-visualizer/blob/master/package.json)
 
-[![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-[![Version](https://img.shields.io/npm/v/freemarker-visualizer.svg)](https://npmjs.org/package/freemarker-visualizer)
-[![Downloads/week](https://img.shields.io/npm/dw/freemarker-visualizer.svg)](https://npmjs.org/package/freemarker-visualizer)
-[![License](https://img.shields.io/npm/l/freemarker-visualizer.svg)](https://github.com/colinfruit/freemarker-visualizer/blob/master/package.json)
+  <!-- toc -->
+  * [Introduction](#introduction)
+  * [Installation](#installation)
+  * [Usage](#usage)
+  <!-- tocstop -->
 
-<!-- toc -->
-* [Usage](#usage)
-<!-- tocstop -->
-# Usage
-<!-- usage -->
-```sh-session
-$ npm install -g freemarker-visualizer
-$ freemarker-visualizer COMMAND
-running command...
-$ freemarker-visualizer (-v|--version|version)
-freemarker-visualizer/0.0.0 darwin-x64 node-v12.13.0
-$ freemarker-visualizer --help [COMMAND]
-USAGE
+  <!-- introduction -->
+  # Introduction
+  A command-line utility to produce visual graphs of FreeMarker templates. Created to help users analyze FreeMarker templates. It was inspired by [Madge](https://github.com/pahen/madge). `freemarker-visualizer` uses [@armano2's](https://github.com/armano2) [`freemarker-parser`](https://github.com/armano2/freemarker-parser) to parse the FreeMarker templates.
+    * `<#import />` and `<#include />` directives are graphed by default
+    * Plugins can be added to add additional information to the graph (see example plugins)
+  <!-- introductionstop -->
+  # Examples
+
+  <!-- installation -->
+  # Installation
+  ```sh
+  $ npm install -g freemarker-visualizer
+  ```
+  <!-- installationstop -->
+
+  # Usage
+  <!-- usage -->
+  ```sh-session
+  $ freemarker-visualizer (-v|--version|version)
+  freemarker-visualizer/0.0.0 darwin-x64 node-v12.13.0
+  $ freemarker-visualizer --help [COMMAND]
   $ freemarker-visualizer --template example.ftl --directories path/to/ftl/dirs,second/path/to/ftls --output graph.svg
-...
-```
-<!-- usagestop -->
-
-This library was created to help users analyze FreeMarker templates. It was inspired by [Madge](https://github.com/pahen/madge).
+  ...
+  ```
+  <!-- usagestop -->

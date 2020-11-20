@@ -12,7 +12,7 @@
 
   <!-- introduction -->
   # Introduction
-  A command-line utility to produce visual graphs of FreeMarker templates.
+  A command-line utility to produce visual graphs of FreeMarker dependency trees.
   It was inspired by [Madge](https://github.com/pahen/madge) and uses [freemarker-parser](https://github.com/armano2/freemarker-parser) for AST generation.
 
   - `<#import />` and `<#include />` directives are graphed by default

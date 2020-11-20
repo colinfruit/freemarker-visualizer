@@ -26,7 +26,3 @@ USAGE
 ...
 ```
 <!-- usagestop -->
-# Commands
-<!-- commands -->
-
-<!-- commandsstop -->

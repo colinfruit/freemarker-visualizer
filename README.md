@@ -13,7 +13,7 @@
   <!-- introduction -->
   # Introduction
   A command-line utility to produce visual graphs of FreeMarker file trees.
-  It was inspired by [Madge](https://github.com/pahen/madge), library that produces visual graphs of JavaScript dependencies.
+  It was inspired by [Madge](https://github.com/pahen/madge), a library that produces visual graphs of JavaScript dependencies.
 
   - Files specified in `<#import />` and `<#include />` directives are graphed by default
   - Plugins can be used to add additional information to the graph (see example plugins)

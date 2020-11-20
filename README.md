@@ -19,9 +19,10 @@
   <!-- introduction -->
   # Introduction
   A command-line utility to produce visual graphs of FreeMarker templates.
-  It was inspired by [Madge](https://github.com/pahen/madge) and uses [@armano2's](https://github.com/armano2) [`freemarker-parser`](https://github.com/armano2/freemarker-parser) to parse the FreeMarker templates.
-    - `<#import />` and `<#include />` directives are graphed by default
-    - Plugins can be added to add additional information to the graph (see example plugins)
+  It was inspired by [Madge](https://github.com/pahen/madge) and uses [freemarker-parser](https://github.com/armano2/freemarker-parser).
+    
+  - `<#import />` and `<#include />` directives are graphed by default
+  - Plugins can be added to add additional information to the graph (see example plugins)
   <!-- introductionstop -->
   # Examples
 

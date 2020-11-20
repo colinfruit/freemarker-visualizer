@@ -10,12 +10,6 @@
   [![Downloads/week](https://img.shields.io/npm/dw/freemarker-visualizer.svg)](https://npmjs.org/package/freemarker-visualizer)
   [![License](https://img.shields.io/npm/l/freemarker-visualizer.svg)](https://github.com/colinfruit/freemarker-visualizer/blob/master/package.json)
 
-  <!-- toc -->
-  * [Introduction](#introduction)
-  * [Installation](#installation)
-  * [Usage](#usage)
-  <!-- tocstop -->
-
   <!-- introduction -->
   # Introduction
   A command-line utility to produce visual graphs of FreeMarker templates.

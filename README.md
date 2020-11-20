@@ -34,3 +34,12 @@
   apt-get install graphviz
   ```
   <!-- setupstop -->
+  
+  # Configuration
+  Property | Type | Default | Description
+  --- | --- | --- | ---
+  `directories` | Array | null | Absolute paths of base directories to search for templates
+
+  You can add a configuration file in `.config/freemarker-visualizer/config.js` in your home directory or provide it through the `--config` flag.
+
+

@@ -18,7 +18,6 @@
   - `<#import />` and `<#include />` directives are graphed by default
   - Plugins can be used to add additional information to the graph (see example plugins)
   <!-- introductionstop -->
-  # Examples
 
   <!-- installation -->
   # Installation

@@ -10,7 +10,6 @@ A command-line utility to produce visualize graphs of FreeMarker dependencies.
 
 <!-- toc -->
 * [Usage](#usage)
-* [Commands](#commands)
 <!-- tocstop -->
 # Usage
 <!-- usage -->

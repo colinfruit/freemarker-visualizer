@@ -3,7 +3,7 @@ const path = require('path')
 
 const Tree = require('./tree')
 const image = require('./graph')
-const {getConfig, sanitizeConfig} = require('./config-helper')
+const {getConfig, normalizeConfig} = require('./config-helper')
 
 class FreemarkerVisualizer extends Command {
   async run() {
@@ -13,8 +13,8 @@ class FreemarkerVisualizer extends Command {
       path.resolve(flags.config) :
       path.join(this.config.configDir, 'config.js')
     const config = getConfig(configPath)
-    // cli flags should override config options
-    const options = sanitizeConfig({...config, ...flags})
+
+    const options = normalizeConfig({...config, ...flags})
     if (options.template && options.directories && options.output) {
       const tree = new Tree(options.template, options.directories).generateTree()
       image(tree, options.output)

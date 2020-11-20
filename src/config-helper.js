@@ -1,5 +1,10 @@
 const path = require('path')
 
+/**
+   * Read the config
+   * @param {Path} configPath path for FreemarkerVisualizer config
+   * @return {Object} config from file or empty object
+   */
 const getConfig = configPath => {
   try {
     return require(configPath)
@@ -8,7 +13,12 @@ const getConfig = configPath => {
   }
 }
 
-const sanitizeConfig = config => {
+/**
+   * Normalize the config
+   * @param {Object} config FreemarkerVisualizer config
+   * @return {Object} sanitized config
+   */
+const normalizeConfig = config => {
   if (typeof config.directories === 'string') {
     config.directories = config.directories.split(',')
   }
@@ -25,4 +35,4 @@ const sanitizeConfig = config => {
   return config
 }
 
-module.exports = {getConfig, sanitizeConfig}
+module.exports = {getConfig, normalizeConfig}

@@ -28,10 +28,15 @@
 
   # Usage
   <!-- usage -->
-  ```sh-session
-  $ freemarker-visualizer (-v|--version|version)
-  freemarker-visualizer/0.0.0 darwin-x64 node-v12.13.0
-  $ freemarker-visualizer --help [COMMAND]
-  $ freemarker-visualizer --template example.ftl --directories path/to/ftl/dirs,second/path/to/ftls --output graph.svg
-  ```
-  <!-- usagestop -->
+```sh-session
+$ npm install -g freemarker-visualizer
+$ freemarker-visualizer COMMAND
+running command...
+$ freemarker-visualizer (-v|--version|version)
+freemarker-visualizer/0.0.1 darwin-x64 node-v12.13.0
+$ freemarker-visualizer --help [COMMAND]
+USAGE
+  $ freemarker-visualizer COMMAND
+...
+```
+<!-- usagestop -->

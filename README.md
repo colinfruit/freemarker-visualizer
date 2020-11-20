@@ -15,7 +15,7 @@
   A command-line utility to produce visual graphs of FreeMarker file trees.
   It was inspired by [Madge](https://github.com/pahen/madge) and uses [freemarker-parser](https://github.com/armano2/freemarker-parser) for AST generation.
 
-  - `<#import />` and `<#include />` directives are graphed by default
+  - Files specified in `<#import />` and `<#include />` directives are graphed by default
   - Plugins can be used to add additional information to the graph (see example plugins)
   <!-- introductionstop -->
 

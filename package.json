@@ -11,6 +11,7 @@
     "@oclif/command": "^1.8.0",
     "@oclif/config": "^1.17.0",
     "@oclif/plugin-help": "^3.2.0",
+    "@oclif/plugin-autocomplete": "^0.2.0",
     "freemarker-parser": "^1.1.6",
     "graphviz": "0.0.9"
   },
@@ -33,7 +34,10 @@
   "license": "MIT",
   "main": "src/index.js",
   "oclif": {
-    "bin": "freemarker-visualizer"
+    "bin": "freemarker-visualizer",
+    "plugins": [
+      "@oclif/plugin-autocomplete"
+    ]
   },
   "repository": "colinfruit/freemarker-visualizer",
   "scripts": {

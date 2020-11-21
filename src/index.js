@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const os = require('os');
 
-const getOptions = require('./config-helper');
+const getOptions = require('./configHelper');
 const image = require('./graph');
 const open = require('./open');
 const Tree = require('./tree');

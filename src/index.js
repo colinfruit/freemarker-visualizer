@@ -7,7 +7,7 @@ const Tree = require('./tree')
 const image = require('./graph')
 const open = require('./open')
 
-program.version('0.0.1')
+program.version('0.0.2')
 
 program
   .option('-h, --help', 'output extra debugging')
@@ -25,7 +25,7 @@ const run = async (flags, args) => {
     path.resolve(flags.config) :
     path.resolve(os.homedir(), '.config/freemarker-visualizer/config.js')
   const options = getOptions(args, flags, configPath)
-  
+
   const tree = new Tree(options.template, options.directories).generateTree()
   await image(tree, options.image)
   open(options.image)

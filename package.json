@@ -1,7 +1,7 @@
 {
   "name": "freemarker-visualizer",
   "description": "A command-line utility to produce visualize graphs of FreeMarker dependencies.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "colinfruit",
   "bin": {
     "freemarker-visualizer": "./bin/run"

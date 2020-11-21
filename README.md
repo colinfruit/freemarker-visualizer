@@ -38,13 +38,13 @@ apt-get install graphviz
 # Usage
 ### Graph file tree:
 ```sh
-freemarker-visualizer path/to/template.ftl
+freemarker-visualizer path/to/template.ftl --directories dir1
 ```
 This will display a visual graph.
 
 ### Save graph as an image:
 ```sh
-freemarker-visualizer path/to/template.ftl --image graph.svg
+freemarker-visualizer path/to/template.ftl --directories dir1 --image graph.svg
 ```
 This will save `graph.svg` in the `cwd`.
 

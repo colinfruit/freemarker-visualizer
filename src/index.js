@@ -1,4 +1,5 @@
 const { program } = require('commander')
+const fs = require('fs')
 const path = require('path')
 const os = require('os')
 
@@ -27,8 +28,11 @@ const run = async (flags, args) => {
   const options = getOptions(args, flags, configPath)
 
   const tree = new Tree(options.template, options.directories).generateTree()
-  await image(tree, options.image)
-  open(options.image)
+  image(tree, options.image).then(image => {
+    fs.writeFile(options.image, image, () => {
+      open(options.image)
+    })
+  })
 }
 
 run(flags, args)

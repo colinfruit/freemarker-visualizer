@@ -22,7 +22,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 const graphviz = require('graphviz')
-const {exec} = require('child_process')
+const { exec } = require('child_process')
+const fs = require('fs')
 const path = require('path')
 
 /**
@@ -119,14 +120,16 @@ const createGraph = (g, treeNode, edges) => {
  * @param  {Object} tree file tree with FTL dependencies and additional info
  * @param {String} outputPath path for generated dependency graph
  */
-const image = async (tree, outputPath) => {
+const image = (tree, outputPath) => {
   checkGraphvizInstalled()
   const options = createGraphvizOptions()
   options.type = path.extname(outputPath).replace('.', '') || 'png'
   const g = graphviz.digraph('G')
   const edges = new Set()
   createGraph(g, tree, edges)
-  await g.output(options, outputPath)
+  return new Promise((resolve, reject) => {
+    g.output(options, resolve, (_1, _2, err) => reject(err))
+  })
 }
 
 module.exports = image

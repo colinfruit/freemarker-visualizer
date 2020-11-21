@@ -119,14 +119,14 @@ const createGraph = (g, treeNode, edges) => {
  * @param  {Object} tree file tree with FTL dependencies and additional info
  * @param {String} outputPath path for generated dependency graph
  */
-const image = (tree, outputPath) => {
+const image = async (tree, outputPath) => {
   checkGraphvizInstalled()
   const options = createGraphvizOptions()
   options.type = path.extname(outputPath).replace('.', '') || 'png'
   const g = graphviz.digraph('G')
   const edges = new Set()
   createGraph(g, tree, edges)
-  g.output(options, outputPath)
+  await g.output(options, outputPath)
 }
 
 module.exports = image

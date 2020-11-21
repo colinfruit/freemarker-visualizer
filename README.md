@@ -40,7 +40,7 @@ apt-get install graphviz
 ```sh
 freemarker-visualizer path/to/template.ftl
 ```
-This will create a temporary image file.
+This will display a visual graph.
 
 ### Save graph as an image:
 ```sh

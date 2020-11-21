@@ -1,9 +1,10 @@
 const {Command, flags} = require('@oclif/command')
 const path = require('path')
 
+const getOptions = require('./config-helper')
 const Tree = require('./tree')
 const image = require('./graph')
-const getOptions = require('./config-helper')
+const open = require('./open')
 
 class FreemarkerVisualizer extends Command {
   async run() {
@@ -14,9 +15,8 @@ class FreemarkerVisualizer extends Command {
       path.resolve(this.config.configDir, 'config.js')
     const options = getOptions(args, flags, configPath)
     const tree = new Tree(options.template, options.directories).generateTree()
-    image(tree, options.image)
-    // eslint-disable-next-line no-console
-    console.log(`image created at: ${options.image}`)
+    await image(tree, options.image)
+    open(options.image)
   }
 }
 

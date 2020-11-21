@@ -40,7 +40,7 @@ apt-get install graphviz
 ```sh
 freemarker-visualizer path/to/template.ftl
 ```
-This will print `dot` output.
+This will create a temporary image file.
 
 ### Save graph as an image:
 ```sh

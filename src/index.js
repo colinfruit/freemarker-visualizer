@@ -13,9 +13,10 @@ class FreemarkerVisualizer extends Command {
       path.resolve(flags.config) :
       path.resolve(this.config.configDir, 'config.js')
     const options = getOptions(args, flags, configPath)
-    console.log(options)
     const tree = new Tree(options.template, options.directories).generateTree()
     image(tree, options.image)
+    // eslint-disable-next-line no-console
+    console.log(`image created at: ${options.image}`)
   }
 }
 
@@ -28,9 +29,9 @@ FreemarkerVisualizer.flags = {
   version: flags.version({char: 'v'}),
   // add --help flag to show CLI version
   help: flags.help({char: 'h'}),
-  directories: flags.string({char: 'd', description: 'comma separated list of ftl base paths'}),
-  image: flags.string({char: 'o', description: 'optional image path'}),
-  config: flags.string({char: 'c', description: 'optional configuration file'}),
+  directories: flags.string({description: 'comma separated list of FTL base paths'}),
+  image: flags.string({description: 'optional image path'}),
+  config: flags.string({description: 'optional configuration file'}),
 }
 
 FreemarkerVisualizer.args = [

@@ -1,5 +1,5 @@
 const path = require('path')
-
+const os = require('os')
 /**
    * Generate options
    * @param {Object} config FreemarkerVisualizer options
@@ -20,8 +20,11 @@ const generateOptions = config => {
     })
   }
 
+  // create a temporary image file if no image flag is provided
   if (config.image) {
     config.image = path.resolve(config.image)
+  } else {
+    config.image = path.resolve(os.tmpdir(), 'graph.png')
   }
   return config
 }

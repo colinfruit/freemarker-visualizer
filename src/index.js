@@ -8,8 +8,7 @@ const open = require('./open')
 
 class FreemarkerVisualizer extends Command {
   async run() {
-    const {args} = this.parse(FreemarkerVisualizer)
-    const {flags} = this.parse(FreemarkerVisualizer)
+    const {args, flags} = this.parse(FreemarkerVisualizer)
     const configPath = flags.config ?
       path.resolve(flags.config) :
       path.resolve(this.config.configDir, 'config.js')

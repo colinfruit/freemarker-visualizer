@@ -38,19 +38,19 @@ apt-get install graphviz
 # Usage
 ### Graph file tree:
 ```sh
-freemarker-visualizer --template path/to/template.ftl
+freemarker-visualizer path/to/template.ftl
 ```
 This will print `dot` output.
 
 ### Save graph as an image:
 ```sh
-freemarker-visualizer --template path/to/template.ftl --image graph.svg
+freemarker-visualizer path/to/template.ftl --image graph.svg
 ```
 This will save `graph.svg` in the `cwd`.
 
 ### Specify multiple template directories:
 ```sh
-freemarker-visualizer --template path/to/template.ftl --directories dir1,dir2
+freemarker-visualizer path/to/template.ftl --directories dir1,dir2
 ```
 This is useful in a project that has multiple base template directories. To avoid difficulty using `freemarker-visualizer`, the directories may be set in a configuration file.
 
@@ -60,5 +60,3 @@ Property | Type | Default | Description
 `directories` | Array | null | Absolute paths of base directories to search for templates
 
 You can add a configuration file in `.config/freemarker-visualizer/config.js` in your home directory or provide it through the `--config` flag.
-
-

@@ -6,6 +6,7 @@ const os = require('os')
    * @return {Object} generate options
    */
 const generateOptions = config => {
+
   if (typeof config.directories === 'string') {
     config.directories = config.directories.split(',')
   }
@@ -57,7 +58,13 @@ const getOptions = (args, flags, configPath) => {
   } catch (_) {
     config = {}
   }
-  const normalizedOptions = generateOptions({...config, ...flags, ...args})
+
+  // TODO: remove this
+  Object.keys(flags).forEach((key) =>  {
+      if(flags[key] === undefined) delete flags[key];
+  })
+
+  const normalizedOptions = generateOptions({ ...config, ...flags, ...args })
   validateOptions(normalizedOptions)
   return normalizedOptions
 }

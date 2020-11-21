@@ -8,17 +8,12 @@
   },
   "bugs": "https://github.com/colinfruit/freemarker-visualizer/issues",
   "dependencies": {
-    "@oclif/command": "^1.8.0",
-    "@oclif/config": "^1.17.0",
-    "@oclif/plugin-help": "^3.2.0",
-    "@oclif/plugin-autocomplete": "^0.2.0",
+    "commander": "^6.2.0",
     "freemarker-parser": "^1.1.6",
     "graphviz": "0.0.9"
   },
   "devDependencies": {
-    "@oclif/dev-cli": "^1.23.0",
-    "eslint": "^5.16.0",
-    "eslint-config-oclif": "^3.1.0"
+    "eslint": "^5.16.0"
   },
   "engines": {
     "node": ">=12.0.0"
@@ -29,21 +24,13 @@
   ],
   "homepage": "https://github.com/colinfruit/freemarker-visualizer",
   "keywords": [
-    "oclif"
+    "commander.js"
   ],
   "license": "MIT",
   "main": "src/index.js",
-  "oclif": {
-    "bin": "freemarker-visualizer",
-    "plugins": [
-      "@oclif/plugin-autocomplete"
-    ]
-  },
   "repository": "colinfruit/freemarker-visualizer",
   "scripts": {
     "posttest": "eslint .",
-    "prepack": "oclif-dev readme",
-    "test": "echo NO TESTS",
-    "version": "oclif-dev readme && git add README.md"
+    "test": "echo NO TESTS"
   }
 }

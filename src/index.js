@@ -16,7 +16,7 @@ const filterObject = (obj) => {
   return filtered;
 };
 
-program.version('0.0.2');
+program.version('0.1.0');
 
 program
   .option('--directories [directories...]', 'FTL base directories')

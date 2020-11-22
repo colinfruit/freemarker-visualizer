@@ -74,7 +74,7 @@ Property | Type | Default | Description
 You can add a configuration file in `.config/freemarker-visualizer/config.js` in your home directory or provide it through the `--config` flag.
 <!-- configstop -->
 
-<#-- plugins -->
+<!-- plugins -->
 # Writing plugins
 To generate additional information about each template, a plugin can be referenced through the the cli or in the configuration.
 Each plugin must:
@@ -83,4 +83,4 @@ Each plugin must:
 - return an object with the new information to be displayed
 
 See [example plugins](https://github.com/colinfruit/freemarker-visualizer/tree/master/examples/plugins) for more information.
-<#-- pluginsstop -->
+<!-- pluginsstop -->

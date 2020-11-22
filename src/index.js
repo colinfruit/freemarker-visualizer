@@ -21,7 +21,8 @@ program.version('0.0.2');
 program
   .option('--directories [directories...]', 'FTL base directories')
   .option('-c, --config <path>', 'set config path. defaults to ~/.config/freemarker-visualizer/config.js')
-  .option('-i, --image <path>', 'optional image path');
+  .option('-i, --image <path>', 'optional image path')
+  .option('--plugins [plugins...]', 'plugins to generate additional template information');
 
 program.parse();
 
@@ -36,7 +37,7 @@ const run = (flags, args) => {
     : path.resolve(os.homedir(), '.config/freemarker-visualizer/config.js');
   const options = getOptions(args, flags, configPath);
 
-  const tree = new Tree(options.template, options.directories).generateTree();
+  const tree = new Tree(options.template, options.directories, options.plugins).generateTree();
   image(tree, options.image).then((imageData) => {
     fs.writeFile(options.image, imageData, () => {
       open(options.image);

@@ -15,7 +15,7 @@ A command-line utility to produce visual graphs of FreeMarker file trees.
 It was inspired by [Madge](https://github.com/pahen/madge), a library that produces visual graphs of JavaScript dependencies.
 
 - Files specified in `<#import />` and `<#include />` directives are graphed by default
-- Plugins can be used to add additional information to the graph (see example plugins)
+- Plugins can be used to add additional information to the graph
 <!-- introductionstop -->
 
 <!-- setup -->
@@ -38,13 +38,13 @@ apt-get install graphviz
 # Usage
 ### Graph file tree:
 ```sh
-freemarker-visualizer path/to/template.ftl --directories dir1
+freemarker-visualizer path/to/template.ftl --directories path/to/dir
 ```
 This will display a visual graph.
 
 ### Save graph as an image:
 ```sh
-freemarker-visualizer path/to/template.ftl --directories dir1 --image graph.svg
+freemarker-visualizer path/to/template.ftl --directories path/to/dir --image graph.svg
 ```
 This will save `graph.svg` in the `cwd`.
 
@@ -53,13 +53,34 @@ This will save `graph.svg` in the `cwd`.
 freemarker-visualizer path/to/template.ftl --directories dir1 dir2
 ```
 This is useful in a project that has multiple base template directories. To avoid difficulty using `freemarker-visualizer`, the directories may be set in a configuration file.
+
+### Add additional template info:
+```sh
+freemarker-visualizer path/to/template.ftl --directories path/to/dir --plugins path/to/plugin.js
+```
+This will generate a graph with additional information about each processed template.
 <!-- usagestop -->
 
 <!-- config -->
 # Configuration
 Property | Type | Default | Description
 --- | --- | --- | ---
-`directories` | Array | null | Absolute paths of base directories to search for templates
+`directories` | Array | null | paths of base directories to search for templates
+`plugins` | Array | null | paths to plugins
+`template` | String | null | path to template
+`image` | String | `graph.png` | path for generated graph image
+
 
 You can add a configuration file in `.config/freemarker-visualizer/config.js` in your home directory or provide it through the `--config` flag.
 <!-- configstop -->
+
+<#-- plugins -->
+# Writing plugins
+To generate additional information about each template, a plugin can be referenced through the the cli or in the configuration.
+Each plugin must:
+- be a JavaScript file
+- export a function with a data parameter
+- return an object with the new information to be displayed
+
+See [example plugins](https://github.com/colinfruit/freemarker-visualizer/tree/master/examples/plugins) for more information.
+<#-- pluginsstop -->

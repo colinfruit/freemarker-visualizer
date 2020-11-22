@@ -28,6 +28,13 @@ const generateOptions = (config, flags, args) => {
   } else {
     options.image = path.resolve(os.tmpdir(), 'graph.png');
   }
+
+  if (options.plugins) {
+    options.plugins = options.plugins.map((plugin) => (
+      // eslint-disable-next-line
+      require(path.resolve(plugin))
+    ));
+  }
   return options;
 };
 

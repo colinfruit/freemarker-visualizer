@@ -7,7 +7,12 @@ const os = require('os');
    */
 const generateOptions = (config, flags, args) => {
   const options = { ...config, ...flags, ...args };
-  if (options.template) {
+  // handle relative or absolute dir paths.
+  if (options.directories) {
+    options.directories = options.directories.map((dir) => path.resolve(dir));
+  }
+
+  if (options.template && options.directories) {
     // enables the user to provide a template path relative to the cwd
     const templatePath = path.resolve(options.template);
     options.directories.forEach((dir) => {

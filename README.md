@@ -77,6 +77,7 @@ You can add a configuration file in `.config/freemarker-visualizer/config.js` in
 <!-- plugins -->
 # Writing plugins
 To generate additional information about each template, a plugin can be referenced through the the cli or in the configuration.
+
 Each plugin must:
 - be a JavaScript file
 - export a function with a data parameter

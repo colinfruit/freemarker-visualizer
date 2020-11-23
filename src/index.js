@@ -8,7 +8,7 @@ const getOptions = require('./helpers/config');
 const open = require('./helpers/open');
 const Tree = require('./tree');
 
-program.version('0.2.0');
+program.version('0.2.1');
 
 program
   .option('--directories [directories...]', 'FTL base directories')

@@ -1,8 +1,24 @@
 const path = require('path');
 const os = require('os');
+
+/**
+  * Remove undefined keys from object
+  * @param {Object} obj
+  * @return {Object} without undefined keys
+  */
+const filterObject = (obj) => {
+  const filtered = {};
+  Object.keys(obj)
+    .filter((key) => obj[key] !== undefined)
+    .forEach((key) => { filtered[key] = obj[key]; });
+  return filtered;
+};
+
 /**
    * Generate options
-   * @param {Object} config FreemarkerVisualizer options
+   * @param {Object} config file of options
+   * @param {Object} flags cli flags
+   * @param {Object} args cli args
    * @return {Object} generate options
    */
 const generateOptions = (config, flags, args) => {
@@ -40,15 +56,15 @@ const generateOptions = (config, flags, args) => {
 
 /**
    * Validate the config
-   * @param {Object} config FreemarkerVisualizer config
+   * @param {Object} options FreemarkerVisualizer options
    */
-const validateOptions = (config) => {
-  if (!config.directories) {
-    throw new Error('directories configuration option not found');
+const validateOptions = (options) => {
+  if (!options.directories) {
+    throw new Error('directories not found');
   }
 
-  if (!config.template) {
-    throw new Error('template arg not provided!');
+  if (!options.template) {
+    throw new Error('template path not found');
   }
 };
 
@@ -68,9 +84,9 @@ const getOptions = (args, flags, configPath) => {
     config = {};
   }
 
-  const normalizedOptions = generateOptions(config, flags, args);
-  validateOptions(normalizedOptions);
-  return normalizedOptions;
+  const options = generateOptions(config, filterObject(flags), args);
+  validateOptions(options);
+  return options;
 };
 
 module.exports = getOptions;

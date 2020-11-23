@@ -27,9 +27,9 @@ const getPath = (token) => {
 * @param {String} data parsed FreeMarker AST and tokens
 * @return {Array} array of all files included or imported
 */
-const dependenciesPlugin = (data) => data.tokens
+const dependencies = (data) => data.tokens
   .filter((token) => isInclude(token) || isImport(token))
   .map(getPath)
   .filter((x) => (x !== false));
 
-module.exports = dependenciesPlugin;
+module.exports = dependencies;

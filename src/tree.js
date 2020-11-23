@@ -2,7 +2,7 @@ const freemarker = require('freemarker-parser');
 const fs = require('fs');
 const path = require('path');
 
-const dependenciesPlugin = require('./plugins/dependencies');
+const dependencies = require('./helpers/dependencies');
 
 const parser = new freemarker.Parser();
 
@@ -70,7 +70,7 @@ class Tree {
     const tree = { filename };
 
     const freemarkerData = Tree.parseTemplate(fileContents);
-    const files = dependenciesPlugin(freemarkerData);
+    const files = dependencies(freemarkerData);
 
     tree.additionalInfo = this.generateAdditionalInfo(freemarkerData);
     tree.dependencies = files.map((dep) => this.generateTree(dep));

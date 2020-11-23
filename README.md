@@ -85,3 +85,8 @@ Each plugin must:
 
 See [example plugins](https://github.com/colinfruit/freemarker-visualizer/tree/master/examples/plugins) for more information.
 <!-- pluginsstop -->
+
+<!-- limitations -->
+# Limitations
+Currently, this utility will ignore template paths that are not relative to one of the provided base template directories. For example, "*/template.ftl" would not be resolved.
+<!-- limitationsstop -->

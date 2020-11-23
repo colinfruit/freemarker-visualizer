@@ -3,18 +3,10 @@ const fs = require('fs');
 const path = require('path');
 const os = require('os');
 
-const getOptions = require('./configHelper');
 const image = require('./graph');
-const open = require('./open');
+const getOptions = require('./helpers/config');
+const open = require('./helpers/open');
 const Tree = require('./tree');
-
-const filterObject = (obj) => {
-  const filtered = {};
-  Object.keys(obj)
-    .filter((key) => obj[key] !== undefined)
-    .forEach((key) => { filtered[key] = obj[key]; });
-  return filtered;
-};
 
 program.version('0.2.0');
 
@@ -28,7 +20,7 @@ program.parse();
 
 // flags must be filtered to avoid overwriting
 // config keys with `undefined`
-const cliFlags = filterObject(program.opts());
+const cliFlags = program.opts();
 const cliArgs = { template: program.args[0] };
 
 const run = (flags, args) => {

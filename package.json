@@ -8,7 +8,7 @@
   },
   "bugs": "https://github.com/colinfruit/freemarker-visualizer/issues",
   "dependencies": {
-    "commander": "^6.2.0",
+    "commander": "^7.0.0",
     "freemarker-parser": "^1.1.6",
     "graphviz": "0.0.9"
   },
